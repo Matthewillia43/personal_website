@@ -1,6 +1,4 @@
-
-<style>
-:root{
+:root {
   --frame-w: 720px;    /* final width */
   --frame-h: 480px;    /* final height */
   --border: 10px;
@@ -8,94 +6,88 @@
   --bg: #fff;
 }
 
-/* page-safe centering for demo */
-.logo-wrap{
-  display:flex;
-  justify-content:center;
-  align-items:center;
+/* Logo wrapper centering */
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 40px;
 }
 
-/* Outer frame grows from small to full size */
-.frame{
+/* Outer frame grows */
+.frame {
   width: var(--frame-w);
   height: var(--frame-h);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  transform-origin:center center;
-  animation: grow-frame 700ms cubic-bezier(.2,.9,.3,1) forwards;
-  /* subtle outer border to match image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+  animation: grow-frame 700ms cubic-bezier(.2, .9, .3, 1) forwards;
   border: var(--border) solid var(--accent);
   box-sizing: border-box;
   background: transparent;
-  position:relative;
+  position: relative;
   overflow: visible;
 }
 
-/* Inner frame (smaller inset box) — also scales in sync for stronger effect */
-.inner-frame{
+/* Inner frame grows */
+.inner-frame {
   width: calc(100% - 80px);
   height: calc(100% - 80px);
   border: var(--border) solid var(--accent);
   box-sizing: border-box;
-  position:relative;
-  display:block;
+  position: relative;
   background: var(--bg);
-  transform-origin:center center;
-  transform: scale(.18);   /* initial miniature */
-  animation: grow-inner 700ms cubic-bezier(.2,.9,.3,1) forwards;
-  animation-delay: 60ms;   /* tiny stagger to feel natural */
+  transform-origin: center center;
+  transform: scale(.18);
+  animation: grow-inner 700ms cubic-bezier(.2, .9, .3, 1) forwards;
+  animation-delay: 60ms;
   overflow: hidden;
 }
 
-/* vertical center line that drops in after growth completes */
-.center-line{
+/* Vertical center line */
+.center-line {
   position: absolute;
   left: 50%;
   top: 0;
   width: 14px;
   height: 60%;
   background: var(--accent);
-  transform: translateX(-50%) translateY(-150%); /* start above */
-  animation: drop-line 500ms cubic-bezier(.15,.8,.25,1) forwards;
-  animation-delay: 900ms; /* runs after the frames have grown */
+  transform: translateX(-50%) translateY(-150%);
+  animation: drop-line 500ms cubic-bezier(.15, .8, .25, 1) forwards;
+  animation-delay: 900ms;
   border-radius: 2px;
   z-index: 4;
 }
 
-/* letters: positioned centered vertically; left and right of center-line */
-.letter{
+/* Letters */
+.letter {
   position: absolute;
   top: 38%;
   font-family: "Times New Roman", Times, serif;
-  font-weight: 400;
   font-size: 160px;
-  line-height: 1;
   color: var(--accent);
   transform-origin: center center;
-  z-index: 5;
-  /* initially hidden and sitting on the center line */
   opacity: 0;
+  z-index: 5;
 }
 
-/* left and right positions */
-.letter.left{
+.letter.left {
   left: 28%;
-  transform: translateX(0) scale(0) translateY(0);
-  /* animate after line drop */
-  animation: letter-pop-left 600ms cubic-bezier(.2,.9,.3,1) forwards;
-  animation-delay: 1300ms;
-}
-.letter.right{
-  right: 28%;
-  transform: translateX(0) scale(0) translateY(0);
-  animation: letter-pop-right 600ms cubic-bezier(.2,.9,.3,1) forwards;
+  transform: translateX(0) scale(0);
+  animation: letter-pop-left 600ms cubic-bezier(.2, .9, .3, 1) forwards;
   animation-delay: 1300ms;
 }
 
-/* bottom stacked bars that slide in leftwards */
-.bars{
+.letter.right {
+  right: 28%;
+  transform: translateX(0) scale(0);
+  animation: letter-pop-right 600ms cubic-bezier(.2, .9, .3, 1) forwards;
+  animation-delay: 1300ms;
+}
+
+/* Bars */
+.bars {
   position: absolute;
   bottom: 30px;
   left: 6%;
@@ -103,7 +95,7 @@
   height: 90px;
   z-index: 3;
 }
-.bar{
+.bar {
   height: 10px;
   background: var(--accent);
   margin-bottom: 14px;
@@ -111,49 +103,46 @@
   opacity: 0;
   border-radius: 2px;
 }
+.b1 { width: 60%; animation: bar-in 500ms forwards; animation-delay: 1500ms; }
+.b2 { width: 80%; animation: bar-in 540ms forwards; animation-delay: 1580ms; }
+.b3 { width: 92%; animation: bar-in 580ms forwards; animation-delay: 1660ms; }
+.b4 { width: 100%; animation: bar-in 620ms forwards; animation-delay: 1740ms; }
 
-/* different lengths for each bar */
-.b1{ width: 60%; animation: bar-in 500ms cubic-bezier(.2,.9,.3,1) forwards; animation-delay: 1500ms; }
-.b2{ width: 80%; animation: bar-in 540ms cubic-bezier(.2,.9,.3,1) forwards; animation-delay: 1580ms; }
-.b3{ width: 92%; animation: bar-in 580ms cubic-bezier(.2,.9,.3,1) forwards; animation-delay: 1660ms; }
-.b4{ width: 100%; animation: bar-in 620ms cubic-bezier(.2,.9,.3,1) forwards; animation-delay: 1740ms; }
-
-/* KEYFRAMES */
-@keyframes grow-frame{
+/* Keyframes */
+@keyframes grow-frame {
   from { transform: scale(.16); opacity: 0; }
   to   { transform: scale(1); opacity: 1; }
 }
-@keyframes grow-inner{
+@keyframes grow-inner {
   from { transform: scale(.16); }
   to   { transform: scale(1); }
 }
-@keyframes drop-line{
+@keyframes drop-line {
   0%   { transform: translateX(-50%) translateY(-150%); opacity: 0; }
   60%  { transform: translateX(-50%) translateY(6%); opacity: 1; }
   100% { transform: translateX(-50%) translateY(0%); opacity: 1; }
 }
-
-/* letters expand from center (scale from 0 to 1) + slight horizontal slide */
-@keyframes letter-pop-left{
-  0%   { opacity: 0; transform: translateX(6px) scale(0) translateY(0); }
+@keyframes letter-pop-left {
+  0%   { opacity: 0; transform: translateX(6px) scale(0); }
   60%  { opacity: 1; transform: translateX(-10px) scale(1.08); }
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
-@keyframes letter-pop-right{
-  0%   { opacity: 0; transform: translateX(-6px) scale(0) translateY(0); }
+@keyframes letter-pop-right {
+  0%   { opacity: 0; transform: translateX(-6px) scale(0); }
   60%  { opacity: 1; transform: translateX(10px) scale(1.08); }
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
-
-@keyframes bar-in{
+@keyframes bar-in {
   0%   { transform: translateX(-120%); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }
 }
 
-/* small-screen responsiveness */
-@media (max-width:900px){
-  :root{ --frame-w: 360px; --frame-h: 240px; }
-  .letter{ font-size: 72px; top: 34%; }
-  .center-line{ width: 10px; }
+/* Responsive */
+@media (max-width: 900px) {
+  :root {
+    --frame-w: 360px;
+    --frame-h: 240px;
+  }
+  .letter { font-size: 72px; top: 34%; }
+  .center-line { width: 10px; }
 }
-</style>
